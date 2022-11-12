@@ -2,11 +2,7 @@
 {
     public interface ICustomComparable<T>
     {
-        public string TextFormat { get; set; } //объект
-        int CustomCompare(T val);
-
-
-
-
+        //public string TextFormat { get; set; } // строковое представление какого-либо объекта
+        public int CustomCompare(T val);
     }
 }
