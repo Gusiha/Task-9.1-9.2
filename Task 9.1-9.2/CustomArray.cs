@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Task_9._1_9._2
+﻿namespace Task_9._1_9._2
 {
-    public class CustomArray<T> : ICustomComparable<T>
+    public class CustomArray<T> where T : ICustomComparable<T>
     {
         public T[] array;
-        //TODO Конструктор
+        
         public CustomArray(int count)
         {
             array = new T[count];
+        }
 
-        } 
-
-        //TODO Индексатор
+        
         public T this[int index]
         {
             get
@@ -33,18 +25,48 @@ namespace Task_9._1_9._2
                 }
                 else throw new Exception("Your index is more than array.Length");
             }
-          
+
         }
+
 
         public int CustomCompare(T val)
         {
-            string TextFormat = val.ToString();
-            int sum = 0;
-            foreach (var item in TextFormat)
+            return 2;
+        }
+
+        public void Sort()
+        {
+            int[] IntArr = new int[array.Length];
+            int temp = 0;
+            T Ttemp;
+            
+            // Преобразование элементов T в числа
+            for (int i = 0; i < array.Length; i++)
             {
-                sum+=CharUnicodeInfo.GetDigitValue(item);
+                IntArr[i] = CustomCompare(array[i]);
             }
-            return sum;           
+
+
+            // Пузырьковая сортировка
+            for (int write = 0; write < IntArr.Length; write++)
+            {
+                for (int sort = 0; sort < IntArr.Length - 1; sort++)
+                {
+                    if (IntArr[sort] > IntArr[sort + 1])
+                    {
+                        // Сортировка массива чисел
+                        temp = IntArr[sort + 1];
+                        IntArr[sort + 1] = IntArr[sort];
+                        IntArr[sort] = temp;
+
+                        // Параллельно с сортировкой массива чисел будет сортироваться массив объектов
+                        Ttemp = array[sort + 1];
+                        array[sort + 1] = array[sort];
+                        array[sort] = Ttemp;
+                    }
+                }
+            }
+
         }
 
 
