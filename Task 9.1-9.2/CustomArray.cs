@@ -1,77 +1,47 @@
 ﻿namespace Task_9._1_9._2
 {
-    public class CustomArray<T> where T : ICustomComparable<T>
+    public class CustomArray<T> : ICustomComparable<T> where T : ICustomComparable<T>
     {
-        public T[] array;
-        
-        public CustomArray(int count)
+        public CustomArray(int value)
         {
-            array = new T[count];
+            _array = new T[value];
         }
 
-        
-        public T this[int index]
+        private T[] _array;
+
+        public T this[int i]
         {
-            get
-            {
-                return array[index];
-            }
-
-            set
-            {
-                if (index < array.Length)
-                {
-                    array[index] = value;
-                }
-                else throw new Exception("Your index is more than array.Length");
-            }
-
+            get { return _array[i]; }
+            set { _array[i] = value; }
         }
 
-
-        public int CustomCompare(T val)
+        public int CustomCompare(T value)
         {
-            return 2;
+            return value.CustomCompare(value);
         }
 
         public void Sort()
         {
-            int[] IntArr = new int[array.Length];
-            int temp = 0;
-            T Ttemp;
-            
-            // Преобразование элементов T в числа
-            for (int i = 0; i < array.Length; i++)
-            {
-                IntArr[i] = CustomCompare(array[i]);
-            }
+            bool check = true;
 
-
-            // Пузырьковая сортировка
-            for (int write = 0; write < IntArr.Length; write++)
+            while (check)
             {
-                for (int sort = 0; sort < IntArr.Length - 1; sort++)
+                check = false;
+
+                for (int i = 1; i < _array.Length; i++)
                 {
-                    if (IntArr[sort] > IntArr[sort + 1])
+                    if (_array[i].CustomCompare(_array[i]) < _array[i - 1].CustomCompare(_array[i - 1]))
                     {
-                        // Сортировка массива чисел
-                        temp = IntArr[sort + 1];
-                        IntArr[sort + 1] = IntArr[sort];
-                        IntArr[sort] = temp;
-
-                        // Параллельно с сортировкой массива чисел будет сортироваться массив объектов
-                        Ttemp = array[sort + 1];
-                        array[sort + 1] = array[sort];
-                        array[sort] = Ttemp;
+                        var temp = _array[i];
+                        _array[i] = _array[i - 1];
+                        _array[i - 1] = temp;
+                        check = true;
                     }
                 }
             }
-
         }
-
-
-        //TODO Сортировка пузырьком используя метод сравнения из интерфейса
-
-
     }
+
+
 }
+
