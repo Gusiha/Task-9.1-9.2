@@ -24,5 +24,12 @@ for (int i = 0; i < 2; i++)
 {
     Console.Write($"[{newArr[i].op1} {newArr[i].op2}] ");
 }
-
 scndArr.Sort();
+
+Console.WriteLine();
+Console.WriteLine("Using foreach with CustomArray: ");
+
+foreach (var element in newArr)
+{
+    Console.Write($"[{element.op1} {element.op2}] ");
+}
